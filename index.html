@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>N.M.L.D. Foundation</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0f1e2e;
+    --navy-mid: #1a3a5c;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --cream: #f7f3ed;
+    --text-light: #8a9bb0;
+    --white: #ffffff;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2.5rem;
+    background: rgba(15,30,46,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.12em; color: var(--gold);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-light); text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+    padding: 8rem 2.5rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--gold);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 9vw, 7rem);
+    font-weight: 900; line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+  }
+  .hero-title .accent { color: var(--gold); }
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--text-light); font-weight: 300;
+    max-width: 520px; line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-style: italic;
+  }
+  .hero-cta {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--navy);
+    padding: 0.85rem 2.2rem; border: none; border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: background 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--white);
+    padding: 0.85rem 2.2rem;
+    border: 1px solid rgba(255,255,255,0.25); border-radius: 2px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;
+    cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-1px); }
+
+  .door-graphic {
+    position: absolute; right: 5%; top: 50%; transform: translateY(-50%);
+    opacity: 0.06; font-size: 18rem; line-height: 1;
+    pointer-events: none; user-select: none;
+    font-family: serif;
+  }
+
+  /* MISSION */
+  .section {
+    padding: 6rem 2.5rem;
+    max-width: 1100px; margin: 0 auto;
+  }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.25rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 20px; height: 1px; background: var(--gold);
+  }
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem); font-weight: 700;
+    line-height: 1.2; margin-bottom: 1.5rem;
+  }
+  .section-body {
+    font-size: 1.05rem; color: var(--text-light);
+    line-height: 1.85; max-width: 680px; font-weight: 300;
+  }
+  .section-body strong { color: var(--white); font-weight: 500; }
+
+  /* PILLARS */
+  .pillars {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(201,168,76,0.15);
+    border-bottom: 1px solid rgba(201,168,76,0.15);
+    padding: 5rem 2.5rem;
+  }
+  .pillars-inner { max-width: 1100px; margin: 0 auto; }
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 2.5rem; margin-top: 3rem;
+  }
+  .pillar {
+    padding: 2rem;
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 2px;
+    transition: border-color 0.25s, transform 0.25s;
+  }
+  .pillar:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .pillar-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; color: rgba(201,168,76,0.25);
+    font-weight: 900; line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .pillar-title {
+    font-size: 1rem; font-weight: 500;
+    color: var(--white); margin-bottom: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  .pillar-body {
+    font-size: 0.88rem; color: var(--text-light);
+    line-height: 1.7; font-weight: 300;
+  }
+
+  /* VOLUNTEER */
+  .volunteer-section {
+    padding: 6rem 2.5rem;
+    background: linear-gradient(135deg, rgba(201,168,76,0.08) 0%, transparent 60%);
+  }
+  .volunteer-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+  }
+  @media (max-width: 768px) {
+    .volunteer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .door-graphic { display: none; }
+    nav { padding: 1rem 1.25rem; }
+    .hero { padding: 7rem 1.25rem 3rem; }
+    .section { padding: 4rem 1.25rem; }
+    .pillars { padding: 4rem 1.25rem; }
+    .volunteer-section { padding: 4rem 1.25rem; }
+    .footer-inner { padding: 3rem 1.25rem; flex-direction: column; gap: 2rem; }
+  }
+  .form-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 2px;
+    padding: 2.5rem;
+  }
+  .form-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem; margin-bottom: 0.5rem;
+  }
+  .form-sub {
+    font-size: 0.85rem; color: var(--text-light);
+    margin-bottom: 1.75rem; line-height: 1.6;
+  }
+  .form-group { margin-bottom: 1rem; }
+  .form-group input, .form-group select {
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 2px;
+    padding: 0.75rem 1rem;
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .form-group input::placeholder { color: rgba(255,255,255,0.3); }
+  .form-group input:focus, .form-group select:focus { border-color: var(--gold); }
+  .form-group select { appearance: none; cursor: pointer; }
+  .form-group select option { background: var(--navy-mid); }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+  .footer-inner {
+    max-width: 1100px; margin: 0 auto;
+    padding: 3rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 1.5rem;
+  }
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem; color: var(--gold); font-weight: 700;
+    letter-spacing: 0.1em;
+  }
+  .footer-tagline {
+    font-size: 0.8rem; color: var(--text-light);
+    margin-top: 0.25rem; font-style: italic;
+  }
+  .footer-social {
+    display: flex; gap: 1.25rem; align-items: center;
+  }
+  .footer-social a {
+    font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--text-light); text-decoration: none; transition: color 0.2s;
+  }
+  .footer-social a:hover { color: var(--gold); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease forwards; }
+  .hero-title { animation: fadeUp 0.7s 0.1s ease both; }
+  .hero-subtitle { animation: fadeUp 0.7s 0.2s ease both; }
+  .hero-cta { animation: fadeUp 0.7s 0.35s ease both; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">N.M.L.D.</a>
+  <ul class="nav-links">
+    <li><a href="#mission">Mission</a></li>
+    <li><a href="#focus">Focus</a></li>
+    <li><a href="#volunteer">Get Involved</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="home">
+  <div class="door-graphic">🚪</div>
+  <p class="hero-eyebrow">No More Locked Doors</p>
+  <h1 class="hero-title">
+    Every door<br>
+    <span class="accent">deserves</span><br>
+    to open.
+  </h1>
+  <p class="hero-subtitle">
+    "Opening doors for those the system locked out."
+  </p>
+  <div class="hero-cta">
+    <a href="#volunteer" class="btn-primary">Get Involved</a>
+    <a href="#mission" class="btn-ghost">Our Mission</a>
+  </div>
+</section>
+
+<section id="mission">
+  <div class="section">
+    <p class="section-label">Who We Are</p>
+    <h2 class="section-heading">Built by someone<br>who was told no.</h2>
+    <p class="section-body">
+      <strong>N.M.L.D. Foundation</strong> was created for the ambitious, the unconventional, the overlooked.
+      Too many people have the drive but not the access — blocked by circumstance, by a system that wasn't built for them,
+      or simply by someone who couldn't see their potential.<br><br>
+      We exist to <strong>change that</strong>. Not through bureaucracy — through connection, opportunity, and an open door.
+    </p>
+  </div>
+</section>
+
+<div class="pillars" id="focus">
+  <div class="pillars-inner">
+    <p class="section-label">What We Do</p>
+    <h2 class="section-heading">Where we focus.</h2>
+    <div class="pillars-grid">
+      <div class="pillar">
+        <div class="pillar-num">01</div>
+        <div class="pillar-title">Education & Training</div>
+        <div class="pillar-body">Connecting people to learning opportunities, skills development, and the knowledge that changes trajectories.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">02</div>
+        <div class="pillar-title">Entrepreneurship</div>
+        <div class="pillar-body">Opening doors for first-generation builders, side hustlers, and dreamers who need a platform, not permission.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">03</div>
+        <div class="pillar-title">Community Events</div>
+        <div class="pillar-body">Creating spaces where underserved communities can access resources, vendors, and the people who can move the needle.</div>
+      </div>
+      <div class="pillar">
+        <div class="pillar-num">04</div>
+        <div class="pillar-title">Grants & Scholarships</div>
+        <div class="pillar-body">Building a fund for the future — investing directly in people who've been told they don't qualify.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="volunteer-section" id="volunteer">
+  <div class="volunteer-inner">
+    <div>
+      <p class="section-label">Join the Movement</p>
+      <h2 class="section-heading">You can be<br>the open door.</h2>
+      <p class="section-body" style="margin-bottom: 1.5rem;">
+        NMLD Foundation runs on <strong>people who believe in the mission</strong>.
+        Whether you have time, skills, or resources — there's a place for you here.
+      </p>
+      <p class="section-body">
+        Volunteers. Mentors. Partners. Vendors.<br>
+        <strong>All are welcome.</strong>
+      </p>
+    </div>
+    <div class="form-card">
+      <h3 class="form-title">Sign Up</h3>
+      <p class="form-sub">Tell us who you are and how you'd like to get involved.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <input type="text" placeholder="First name">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Last name">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email address">
+      </div>
+      <div class="form-group">
+        <input type="tel" placeholder="Phone (optional)">
+      </div>
+      <div class="form-group">
+        <select>
+          <option value="" disabled selected>How would you like to help?</option>
+          <option>Volunteer at events</option>
+          <option>Mentor / Coach</option>
+          <option>Vendor / Business partner</option>
+          <option>Donate to the foundation</option>
+          <option>Spread the word</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <button class="btn-primary" style="width:100%; margin-top:0.5rem;" onclick="handleSignup(this)">
+        Count Me In
+      </button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">N.M.L.D. FOUNDATION</div>
+      <div class="footer-tagline">No More Locked Doors</div>
+    </div>
+    <div class="footer-social">
+      <a href="#">@nmldfoundation</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+function handleSignup(btn) {
+  btn.textContent = "Thank you — we'll be in touch!";
+  btn.style.background = '#1a3a5c';
+  btn.style.color = '#c9a84c';
+  btn.style.border = '1px solid #c9a84c';
+  btn.disabled = true;
+}
+</script>
+
+</body>
+</html>
